@@ -32,13 +32,15 @@ public class ClientController : ControllerBase
         return client;
     }
 
+    [Authorize(Policy ="SuperAdmin")]
     [HttpPost("create")]
     public async Task<IActionResult> Create(Client client)
     {
         var newClient = await _service.Create(client);
         return CreatedAtAction(nameof(GetById), new {id = newClient.Id}, client);
     }
-
+    
+    [Authorize(Policy ="SuperAdmin")]
     [HttpPut("update/{id}")]
     public async Task<IActionResult> Update(int id,Client client)
     {
@@ -58,6 +60,7 @@ public class ClientController : ControllerBase
         }
     }
 
+    [Authorize(Policy ="SuperAdmin")]
     [HttpDelete("delete/{id}")]
     public async Task<IActionResult> Delete(int id)
     {

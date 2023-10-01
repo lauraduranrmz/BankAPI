@@ -7,7 +7,7 @@ namespace BankAPI.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class AccountController : ControllerBase
 {
 
@@ -40,6 +40,7 @@ public class AccountController : ControllerBase
         return account;
     }
 
+    [Authorize(Policy ="SuperAdmin")]
     [HttpPost]
     public async Task<IActionResult> Create(AccountDtoIn account)
     {
@@ -52,7 +53,8 @@ public class AccountController : ControllerBase
         return CreatedAtAction(nameof(GetById), new {id = newAccount.Id}, newAccount);
     }
 
-    [HttpPut("{id}")]
+    [Authorize(Policy ="SuperAdmin")]
+    [HttpPut("update/{id}")]
     public async Task<IActionResult> Update(int id,AccountDtoIn account)
     {
         if (id != account.Id)
@@ -76,7 +78,8 @@ public class AccountController : ControllerBase
         }
     }
 
-    [HttpDelete("{id}")]
+    [Authorize(Policy ="SuperAdmin")]
+    [HttpDelete("delete/{id}")]
     public async Task<IActionResult> Delete(int id)
     {
              var accountToDelete = await accountService.GetById(id);
