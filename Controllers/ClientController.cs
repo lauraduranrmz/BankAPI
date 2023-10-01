@@ -4,7 +4,7 @@ using BankAPI.Data.BankModels;
 namespace BankAPI.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class ClientController : ControllerBase
 {
 
@@ -14,7 +14,7 @@ public class ClientController : ControllerBase
         _service = client;
     }
 
-    [HttpGet]
+    [HttpGet("getall")]
     public async Task<IEnumerable<Client>> Get()
     {
         return await _service.GetAll();
@@ -30,14 +30,14 @@ public class ClientController : ControllerBase
         return client;
     }
 
-    [HttpPost]
+    [HttpPost("create")]
     public async Task<IActionResult> Create(Client client)
     {
         var newClient = await _service.Create(client);
         return CreatedAtAction(nameof(GetById), new {id = newClient.Id}, client);
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("update/{id}")]
     public async Task<IActionResult> Update(int id,Client client)
     {
         if (id != client.Id)
@@ -56,7 +56,7 @@ public class ClientController : ControllerBase
         }
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("delete/{id}")]
     public async Task<IActionResult> Delete(int id)
     {
              var clientToDelete = await _service.GetById(id);
