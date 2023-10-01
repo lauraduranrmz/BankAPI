@@ -11,7 +11,7 @@ public partial class Client
 
     public string PhoneNumber { get; set; } = null!;
 
-    public string? Email { get; set; }
+    public string Email { get; set; }
 
     public DateTime RegDate { get; set; }
 

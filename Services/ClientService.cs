@@ -18,7 +18,7 @@ public class ClientService
         return await _context.Clients.ToListAsync();
     }
 
-    public async Task<Client?> GetById(int id)
+    public async Task<Client> GetById(int id)
     {
         return await _context.Clients.FindAsync(id);
     }

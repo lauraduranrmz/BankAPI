@@ -26,7 +26,7 @@ public class AccountService
         }).ToListAsync();
     }
 
-    public async Task<AccountDtoOut?> GetDtoByID(int id)
+    public async Task<AccountDtoOut> GetDtoByID(int id)
     {
         return await _context.Accounts.
             Where(a => a.Id == id).
@@ -40,7 +40,7 @@ public class AccountService
         }).SingleOrDefaultAsync();
     }
 
-    public async Task<Account?> GetById(int id)
+    public async Task<Account> GetById(int id)
     {
         return await _context.Accounts.FindAsync(id);
     }

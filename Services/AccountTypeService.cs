@@ -12,7 +12,7 @@ public class AccountTypeService
         _context = context;
     }
 
-    public async Task<AccountType?> GetById (int id)
+    public async Task<AccountType> GetById (int id)
     {
         return await _context.AccountTypes.FindAsync(id);
     }
