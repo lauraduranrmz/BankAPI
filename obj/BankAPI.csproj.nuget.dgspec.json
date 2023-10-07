@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\duran\\CursoNET\\BankAPI\\BankAPI.csproj": {}
+    "c:\\Users\\duran\\CursoNET\\BankAPI\\BankAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\duran\\CursoNET\\BankAPI\\BankAPI.csproj": {
+    "c:\\Users\\duran\\CursoNET\\BankAPI\\BankAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\duran\\CursoNET\\BankAPI\\BankAPI.csproj",
+        "projectUniqueName": "c:\\Users\\duran\\CursoNET\\BankAPI\\BankAPI.csproj",
         "projectName": "BankAPI",
-        "projectPath": "C:\\Users\\duran\\CursoNET\\BankAPI\\BankAPI.csproj",
+        "projectPath": "c:\\Users\\duran\\CursoNET\\BankAPI\\BankAPI.csproj",
         "packagesPath": "C:\\Users\\duran\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\duran\\CursoNET\\BankAPI\\obj\\",
+        "outputPath": "c:\\Users\\duran\\CursoNET\\BankAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\duran\\AppData\\Roaming\\NuGet\\NuGet.Config"
