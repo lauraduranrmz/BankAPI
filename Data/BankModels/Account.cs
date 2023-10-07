@@ -15,7 +15,7 @@ public partial class Account
 
     public DateTime RegData { get; set; }
 
-    public virtual AccountType AccountTypeNavigation { get; set; } = null!;
+    public virtual AccountType AccountTypeNavigation { get; set; }
 
     public virtual ICollection<BankTransaction> BankTransactions { get; set; } = new List<BankTransaction>();
 

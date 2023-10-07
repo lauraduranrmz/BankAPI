@@ -28,7 +28,10 @@ public partial class BankContext : DbContext
 
     public virtual DbSet<TransactionType> TransactionTypes { get; set; }
 
-    
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=Bank;Trusted_connection=true;TrustServerCertificate=True");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Account>(entity =>
@@ -62,6 +65,7 @@ public partial class BankContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Name)
+                .IsRequired()
                 .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.RegDate)
@@ -77,18 +81,23 @@ public partial class BankContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.AdminType)
+                .IsRequired()
                 .HasMaxLength(30)
                 .IsUnicode(false);
             entity.Property(e => e.Email)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Name)
+                .IsRequired()
                 .HasMaxLength(200)
                 .IsUnicode(false);
             entity.Property(e => e.PhoneNumber)
+                .IsRequired()
                 .HasMaxLength(40)
                 .IsUnicode(false);
             entity.Property(e => e.Pwd)
+                .IsRequired()
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.RegDate)
@@ -135,9 +144,14 @@ public partial class BankContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Name)
+                .IsRequired()
                 .HasMaxLength(200)
                 .IsUnicode(false);
             entity.Property(e => e.PhoneNumber)
+                .IsRequired()
+                .HasMaxLength(40)
+                .IsUnicode(false);
+            entity.Property(e => e.Pwd)
                 .HasMaxLength(40)
                 .IsUnicode(false);
             entity.Property(e => e.RegDate)
@@ -153,6 +167,7 @@ public partial class BankContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Name)
+                .IsRequired()
                 .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.RegDate)

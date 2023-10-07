@@ -6,6 +6,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using BankAPI.Data.DTOs;
 
 namespace BankAPI.Controllers;
 
@@ -23,7 +24,7 @@ public class LoginController : ControllerBase
         this.config = config;
     }
 
-    [HttpPost("authenticate")]
+    [HttpPost("Admin/authenticate")]
 
     public async Task<ActionResult> Login (AdminDto adminDto)
     {
@@ -36,6 +37,19 @@ public class LoginController : ControllerBase
         string jwtToken = GenerateToken(admin);
 
         return Ok( new {token = jwtToken});
+    }
+
+    [HttpPost("Client/authenticate")]
+    public async Task<ActionResult> Login(ClientDto clientP)
+    {
+        var client =  await loginService.GetPassClient(clientP);
+
+        if(client is null)
+            return BadRequest(new { messagge = "Credenciales invalidas."});
+
+        string jwtToken = GenerateTokenClient(client);
+        
+        return Ok( new{ token = jwtToken});
     }
 
     private string GenerateToken(Administrator admin)
@@ -61,4 +75,25 @@ public class LoginController : ControllerBase
         return token;
     }
 
+    private string GenerateTokenClient(Client client)
+    {
+        var claims = new[]
+        {
+            new Claim(ClaimTypes.Role, "Client"),
+            new Claim(ClaimTypes.Name, client.Name),
+            new Claim(ClaimTypes.Email, client.Email)
+        };
+
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("JWT:Key").Value)); 
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
+
+        var securityToken = new JwtSecurityToken(
+         claims: claims,
+         expires: DateTime.Now.AddMinutes(60),
+         signingCredentials: creds);
+
+        string token = new JwtSecurityTokenHandler().WriteToken(securityToken);
+
+        return token;
+    }
 }
