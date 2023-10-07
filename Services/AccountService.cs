@@ -20,7 +20,7 @@ public class AccountService
         {
             Id = a.Id,
             AccountName = a.AccountTypeNavigation.Name,
-            ClientName = a.Clien != null ? a.Clien.Name : "",
+            ClientName = a.Clien.Name,
             Balance = a.Balance,
             RegData = a.RegData
         }).ToListAsync();
@@ -43,6 +43,18 @@ public class AccountService
     public async Task<Account> GetById(int id)
     {
         return await _context.Accounts.FindAsync(id);
+    }
+
+    public  async Task<IEnumerable<Account>> GetByClientId(int? ClientId)
+    {
+        if(ClientId == 0)
+        {
+            return await _context.Accounts.Where(a => a.ClienId == null).ToListAsync();
+        }else
+            {
+                return await _context.Accounts.Where(a => a.ClienId == ClientId).ToListAsync();
+            }
+
     }
 
     public async Task<Account> Create(AccountDtoIn newAccountDTO)

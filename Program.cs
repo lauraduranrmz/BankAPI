@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using BankAPI.Data;
 using BankAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -16,11 +17,15 @@ builder.Services.AddSwaggerGen();
 //DbContext
 builder.Services.AddSqlServer<BankContext>(builder.Configuration.GetConnectionString("BankConnection"));
 
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 //Service Layer
 builder.Services.AddScoped<ClientService>();
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<AccountTypeService>();
 builder.Services.AddScoped<LoginService>();
+
+builder.Services.AddScoped<BankTransactionService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {

@@ -5,9 +5,10 @@ using TestBankAPI.Data.DTOs;
 using Microsoft.AspNetCore.Authorization;
 namespace BankAPI.Controllers;
 
-[Authorize]
+//[Authorize]
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Roles = "Admin")]
 public class AccountController : ControllerBase
 {
 
@@ -24,7 +25,7 @@ public class AccountController : ControllerBase
         this.clientService = clientService;
     }
 
-    [HttpGet]
+    [HttpGet ("getall")]
     public async Task<IEnumerable<AccountDtoOut>> Get()
     {
         return await accountService.GetAll();

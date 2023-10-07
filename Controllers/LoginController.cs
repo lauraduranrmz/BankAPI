@@ -56,6 +56,7 @@ public class LoginController : ControllerBase
     {
         var claims = new[]
         {
+            new Claim(ClaimTypes.Role, "Admin"),
             new Claim(ClaimTypes.Name, admin.Name),
             new Claim(ClaimTypes.Email, admin.Email),
             new Claim ("AdminType", admin.AdminType)
